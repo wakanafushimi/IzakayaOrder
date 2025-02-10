@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // ListView のセットアップ
         orderListView = findViewById(R.id.orderHistory)
         loadOrderHistory()
     }

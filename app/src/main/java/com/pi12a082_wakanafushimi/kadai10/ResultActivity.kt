@@ -15,23 +15,17 @@ class ResultActivity : AppCompatActivity() {
 
         val dbHelper = DatabaseHelper(this)
 
-        // `Intent` から `menu_name` を取得
         val menuName = intent.getStringExtra("menu_name") ?: "メニュー不明"
 
-        // `TextView` にメニュー名を表示
         val menuTextView: TextView = findViewById(R.id.menuText) // IDを修正
         menuTextView.text = menuName
 
         // 注文履歴に追加
         dbHelper.addOrder(menuName)
 
-        // 「メニューに戻る」ボタンの処理
+        // 「メニューに戻る」ボタン
         val backButton: Button = findViewById(R.id.resultButton)
         backButton.setOnClickListener {
-//            val intent = Intent(this, MainActivity::class.java)
-//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-//            startActivity(intent)
-
             val intent = Intent(
                 this,
                 MainActivity::class.java

@@ -16,23 +16,7 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
         db?.execSQL("CREATE TABLE menu_items(menu_name TEXT)")
         db?.execSQL("CREATE TABLE order_history(menu_name TEXT, createdAt DATETIME DEFAULT CURRENT_TIMESTAMP)")
 
-        // アプリ起動時に注文履歴を削除
-        db?.execSQL("DELETE FROM order_history")
-
-        val menuNames = listOf("ビール", "焼酎", "日本酒", "レモンサワー", "ハイボール", "カクテル", "ワイン", "梅酒")
-
-        db?.beginTransaction()
-        try {
-            menuNames.forEach { menuName ->
-                val value = ContentValues().apply {
-                    put("menu_name", menuName)
-                }
-                db?.insert("menu_items", null, value)
-            }
-            db?.setTransactionSuccessful()
-        } finally {
-            db?.endTransaction()
-        }
+        initializeMenu(db)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -80,5 +64,24 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
     fun clearOrderHistory() {
         val db = writableDatabase
         db.execSQL("DELETE FROM order_history")
+    }
+
+    fun initializeMenu(db: SQLiteDatabase?) {
+        db?.execSQL("DELETE FROM menu_items") // メニューをクリア
+
+        val menuNames = listOf("ビール", "焼酎", "日本酒", "レモンサワー", "ハイボール", "カクテル", "ワイン", "梅酒")
+
+        db?.beginTransaction()
+        try {
+            menuNames.forEach { menuName ->
+                val value = ContentValues().apply {
+                    put("menu_name", menuName)
+                }
+                db?.insert("menu_items", null, value)
+            }
+            db?.setTransactionSuccessful()
+        } finally {
+            db?.endTransaction()
+        }
     }
 }
