@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         dbHelper = DatabaseHelper(this)
+        dbHelper.clearOrderHistory()
         val menuList = dbHelper.getMenuList()
 
         val buttonIds = listOf(
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // ListView のセットアップ
-        orderListView = findViewById(R.id.order_list)
+        orderListView = findViewById(R.id.orderHistory)
         loadOrderHistory()
     }
 

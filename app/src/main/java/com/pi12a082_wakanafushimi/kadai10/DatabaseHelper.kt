@@ -16,7 +16,10 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
         db?.execSQL("CREATE TABLE menu_items(menu_name TEXT)")
         db?.execSQL("CREATE TABLE order_history(menu_name TEXT, createdAt DATETIME DEFAULT CURRENT_TIMESTAMP)")
 
-        val menuNames = listOf("ビール","焼酎","日本酒","レモンサワー","ハイボール","カクテル","ワイン","梅酒")
+        // アプリ起動時に注文履歴を削除
+        db?.execSQL("DELETE FROM order_history")
+
+        val menuNames = listOf("ビール", "焼酎", "日本酒", "レモンサワー", "ハイボール", "カクテル", "ワイン", "梅酒")
 
         db?.beginTransaction()
         try {

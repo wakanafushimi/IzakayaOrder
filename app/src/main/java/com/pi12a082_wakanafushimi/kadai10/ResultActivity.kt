@@ -19,8 +19,6 @@ class ResultActivity : AppCompatActivity() {
         val menuName = intent.getStringExtra("menu_name") ?: "メニュー不明"
 
         // `TextView` にメニュー名を表示
-//        val menuTextView: TextView = findViewById(R.id.menu_text)
-//        menuTextView.text = "選択したメニュー: $menuName"
         val menuTextView: TextView = findViewById(R.id.menuText) // IDを修正
         menuTextView.text = menuName
 
@@ -30,8 +28,15 @@ class ResultActivity : AppCompatActivity() {
         // 「メニューに戻る」ボタンの処理
         val backButton: Button = findViewById(R.id.resultButton)
         backButton.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+//            val intent = Intent(this, MainActivity::class.java)
+//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+//            startActivity(intent)
+
+            val intent = Intent(
+                this,
+                MainActivity::class.java
+            )
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             startActivity(intent)
         }
     }
